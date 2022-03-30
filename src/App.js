@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import Explote from "./pages/Explote";
-import ForgotPassword from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/Forgot-password";
 import Offers from "./pages/Offers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
