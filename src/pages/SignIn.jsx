@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 
@@ -11,8 +11,6 @@ function SignIn() {
   });
 
   const { email, password } = formData;
-
-  const navigate = useNavigate();
 
   /*[e.target.id]: e.targert.value  - in this line [e.target.id] will change based on a id attribute of input where it belongs(password or email, ), then the e.targert.value -- will be set  respectively. for id='email', its value becomes what triggers onChange() of input for email, same for id=password*/
 
