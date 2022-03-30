@@ -1,10 +1,12 @@
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+
 import Explote from "./pages/Explote";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
@@ -18,8 +20,9 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
+        {/*Navbar */}
+        <Navbar />
       </Router>
-      {/*Navbar */}
     </>
   );
 }
