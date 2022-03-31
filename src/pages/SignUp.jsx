@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -20,7 +21,7 @@ function SignUp() {
   const navigate = useNavigate();
   const { email, password, name } = formData;
 
-  /*[e.target.id]: e.targert.value  - in this line [e.target.id] will change based on a id attribute of input where it belongs(password or email, ), then the e.targert.value -- will be set  respectively. for id='email', its value becomes what triggers onChange() of input for email, same for id=password*/
+  /*[e.target.id]: e.target.value  - in this line [e.target.id] will change based on a id attribute of input where it belongs(password or email, ), then the e.target.value -- will be set  respectively. for id='email', its value becomes what triggers onChange() of input for email, same for id=password*/
 
   const onChange = (e) => {
     setformData((prevState) => ({
@@ -42,7 +43,17 @@ function SignUp() {
       updateProfile(auth.currentUser, {
         displayName: name,
       });
+
+      //Save user to Firestore
+
+      const formDataCopy = { ...formData }; //make a copy of the formData obj.
+      delete formDataCopy.password; //to remove the password property from formDataCopy object, we don't want user password put  into database.
+      formDataCopy.timestamp = serverTimestamp(); //add timestamp property to the formDataCopy obj.
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy); //setDoc() updates the database and adds our user to the users collection. 'users' we-re defining a collection name, user.uid - adds id for each user. The second argument is the 'formDataCopy' info about the user to be added.
+
       navigate("/");
+      console.log(auth);
     } catch (error) {
       console.log(error);
     }
