@@ -1,4 +1,6 @@
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Explote from "./pages/Explote";
 import ForgotPassword from "./pages/Forgot-password";
 import Offers from "./pages/Offers";
@@ -19,9 +21,9 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
-        {/*Navbar */}
         <Navbar />
       </Router>
+      <ToastContainer />
     </>
   );
 }

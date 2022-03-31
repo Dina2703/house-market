@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -37,7 +38,7 @@ function SignIn() {
         navigate("/profile");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("bad User Credentials");
     }
   };
 
