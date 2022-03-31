@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
+import { useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function SignIn() {
   const [showPassword, setshowPassword] = useState(false);
@@ -12,6 +14,7 @@ function SignIn() {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate();
   /*[e.target.id]: e.targert.value  - in this line [e.target.id] will change based on a id attribute of input where it belongs(password or email, ), then the e.targert.value -- will be set  respectively. for id='email', its value becomes what triggers onChange() of input for email, same for id=password*/
 
   const onChange = (e) => {
@@ -21,6 +24,23 @@ function SignIn() {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="pageContainer">
@@ -28,7 +48,7 @@ function SignIn() {
           <p className="pageHeader">Welcome</p>
         </header>
         <main>
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="email"
               className="emailInput"
