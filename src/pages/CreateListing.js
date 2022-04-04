@@ -59,8 +59,34 @@ function CreateListing() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
   };
-  const onMutate = (e) => {};
+  const onMutate = (e) => {
+    let boolean = null;
+
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+    if (e.target.value === "false") {
+      boolean = false;
+    }
+
+    //Files
+    if (e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        images: e.target.files,
+      }));
+    }
+    //Text/Booleans/Numbers
+    if (!e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        //boolean ?? - means if boolean is null use left side operator
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
+  };
   if (loading) {
     return <Spinner />;
   }
