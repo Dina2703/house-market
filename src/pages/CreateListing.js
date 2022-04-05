@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { toast } from "react-toastify";
 
 function CreateListing() {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
@@ -57,10 +58,44 @@ function CreateListing() {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMounted]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log(formData);
+    console.log(discountedPrice, regularPrice);
+    if (+discountedPrice >= +regularPrice) {
+      setLoading(false);
+      toast.error("Discounted price needs to be less than regular price");
+      return;
+    }
+
+    if (images.length > 6) {
+      setLoading(false);
+      toast.error("Max 6 images");
+      return;
+    }
+
+    let geolocation = {
+      lat: 0,
+    };
+
+    let location;
+
+    if (geolocationEnabled) {
+      //if geolocation is enabled, make a request to Google, value for the key, i got from console.cloud.google.com
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCjzE5wcY6Q9yCpLasWZUks-r32Zghn7LY`
+      );
+      const data = await response.json();
+      console.log(data);
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+      location = address;
+    }
+    setLoading(false);
   };
+
   const onMutate = (e) => {
     let boolean = null;
 
