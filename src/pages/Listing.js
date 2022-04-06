@@ -88,7 +88,7 @@ function Listing() {
         {/* Contact button that show up inly for clients. listing.userRef gives us a user id*/}
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}&listingLocation=${listing.location}`}
+            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
             className="primaryButton"
           >
             Contact Landlord
