@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Explote from "./pages/Explote";
+import Explore from "./pages/Explore";
 import ForgotPassword from "./pages/Forgot-password";
 import Offers from "./pages/Offers";
 import Profile from "./pages/Profile";
@@ -19,7 +19,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Explote />} />
+          <Route path="/" element={<Explore />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/category/:categoryName" element={<Category />} />
           <Route path="/profile" element={<PrivateRoute />}>
