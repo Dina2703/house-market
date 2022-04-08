@@ -8,6 +8,7 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [landlord, setLandlord] = useState(null);
   //below line allow us to get the listing name that we're passing in as a search parameter or a query string
+  //eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
 
   //to get the ID in URL, we use useParams()
